@@ -10,11 +10,11 @@ config = {
     "ACCESS_TOKEN" :"dd4720376e6a5d1790b5e1732dcc87c1_c2399f0fbc3c7e1682a4e7b0f518277d",
     "BLOG_NAME" : "private-k",
     "REMOVE_AFTER_UPLOAD" : True,
-    "upload_path" : "Notion To Tistory/upload",
+    "upload_path" : "/Users/minkyukim/Desktop/Project/Notion To Tistory/upload",
     
     "CODE_AS_PYTHON" : True,
 }
-
+print(os.getcwd())
 os.chdir(config["upload_path"])
 path_list = os.listdir()
 if '.DS_Store' in path_list:
