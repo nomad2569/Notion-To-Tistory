@@ -14,7 +14,6 @@ config = {
     
     "CODE_AS_PYTHON" : True,
 }
-print(os.getcwd())
 os.chdir(config["upload_path"])
 path_list = os.listdir()
 if '.DS_Store' in path_list:
