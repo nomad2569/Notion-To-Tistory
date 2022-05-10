@@ -9,10 +9,11 @@ import zipfile
 config = {
     "ACCESS_TOKEN" :"dd4720376e6a5d1790b5e1732dcc87c1_c2399f0fbc3c7e1682a4e7b0f518277d",
     "BLOG_NAME" : "private-k",
-    "REMOVE_AFTER_UPLOAD" : True,
+    "REMOVE_AFTER_UPLOAD" : False,
     "upload_path" : "/Users/minkyukim/Desktop/Project/Notion To Tistory/upload",
     
-    "CODE_AS_PYTHON" : True,
+    "CODE_AS_PYTHON" : False,
+    "CODE_AS_TYPESCRIPT" : True
 }
 os.chdir(config["upload_path"])
 path_list = os.listdir()
@@ -54,6 +55,10 @@ for html_idx, html_value in enumerate(html_list):
         code_list = soup.select('pre')
         for code in code_list:
             code['class'].append('hljs language-python')
+    elif config["CODE_AS_TYPESCRIPT"]:
+        code_list = soup.select('pre')
+        for code in code_list:
+            code['class'].append('hljs language-typescript')
 
     # details 닫기 처리 해두기
     details = article.find_all('details')
@@ -86,6 +91,57 @@ for html_idx, html_value in enumerate(html_list):
             tags.append(site_name)
         elif col_name=='Category ID':
             CATEGORY_ID = col.find('td').text
+
+    # indented block 가져오기
+    indented_divs = article.find_all('div', 'indented')
+    # h1 이면서 자식이 summary 가져오기
+    all_h1 = article.find_all('h1')
+    all_indent_h1 = []
+    for idx, h1 in enumerate(all_h1):
+        if '<details>' in str(all_h1[idx]):
+            all_indent_h1.append(all_h1[idx])
+    for h1_idx, indent_h1 in enumerate(all_indent_h1):    
+        for idx, sibling in enumerate(all_indent_h1[h1_idx].next_siblings):
+            # 바로 다음의 형제가 indented div 라면
+            if idx == 0 and '<div class="indented"' in str(sibling):
+                details = all_indent_h1[h1_idx].find("details")
+                details.append(sibling)
+                summary = details.find("summary")
+                summary.name = "h1"
+                summary.wrap(soup.new_tag('summary', **{'class':'Notion_summary_h1'}))
+                all_indent_h1[h1_idx].unwrap()
+    # h2 이면서 자식이 summary 가져오기
+    all_h2 = article.find_all('h2')
+    all_indent_h2 = []
+    for idx, h2 in enumerate(all_h2):
+        if '<details>' in str(all_h2[idx]):
+            all_indent_h2.append(all_h2[idx])
+    for h2_idx, indent_h2 in enumerate(all_indent_h2):    
+        for idx, sibling in enumerate(all_indent_h2[h2_idx].next_siblings):
+            # 바로 다음의 형제가 indented div 라면
+            if idx == 0 and '<div class="indented"' in str(sibling):
+                details = all_indent_h2[h2_idx].find("details")
+                details.append(sibling)
+                summary = details.find("summary")
+                summary.name = "h2"
+                summary.wrap(soup.new_tag('summary', **{'class':'Notion_summary_h2'}))
+                all_indent_h2[h2_idx].unwrap()
+    # h3 이면서 자식이 summary 가져오기
+    all_h3 = article.find_all('h3')
+    all_indent_h3 = []
+    for idx, h3 in enumerate(all_h3):
+        if '<details>' in str(all_h3[idx]):
+            all_indent_h3.append(all_h3[idx])
+    for h3_idx, indent_h3 in enumerate(all_indent_h3):    
+        for idx, sibling in enumerate(all_indent_h3[h3_idx].next_siblings):
+            # 바로 다음의 형제가 indented div 라면
+            if idx == 0 and '<div class="indented"' in str(sibling):
+                details = all_indent_h3[h3_idx].find("details")
+                details.append(sibling)
+                summary = details.find("summary")
+                summary.name = "h3"
+                summary.wrap(soup.new_tag('summary', **{'class':'Notion_summary_h3'}))
+                all_indent_h3[h3_idx].unwrap()
     
     # tags는 배열 형태이므로 comma로 구분되는 문자열 값으로 변환
     tags_str = ''
