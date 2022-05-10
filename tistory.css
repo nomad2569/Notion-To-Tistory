@@ -2863,7 +2863,7 @@ a.tx-link {color:#81a9db;border-bottom:1px solid #81a9db}
 .link-box dt {min-width:41px;margin-right:5px;padding:0px 3px;color:#fff;text-align:center;font-family:Helvetica;font-size:11px;text-transform:uppercase;background-color:#81a9db}
 .link-box a {font-size:.9em;border-bottom: 1px dotted;}
 .link-refer {padding: 25px; border:1px solid #e1e4e5; border-left-width: 3px}
-.link-refer h3 {padding-bottom: 5px; border-bottom: 1px solid #e1e4e5;}
+.link-refer h3 {padding-bottom: 5px;}
 .link-refer h3:before, .link-refer h3 > .ie-before {display: none}
 .link-refer ol, .link-refer ul {margin: 0;}
 /* 다음맵 */
@@ -3057,7 +3057,6 @@ margin-bottom: 0.75em;
 }
 .Notion_P h1 {
 font-size: 1.875rem;
-margin-top: 1.875rem;
 padding: 10px;
 }
 .Notion_P h2 {
@@ -3225,34 +3224,38 @@ cursor: pointer;
     align-items: center;
     justify-self: center;
     width:100%;
+    cursor:pointer;
 }
 .Notion_summary_h2{
     display: flex;
     align-items: center;
     justify-self: center;
     width:100%;
+    cursor:pointer;
 }
 .Notion_summary_h3{
     display: flex;
     align-items: center;
     justify-self: center;
     width:100%;
+    cursor:pointer;
 }
 
 .Notion_summary_h1::-webkit-details-marker{
     width: 24px;
     height: 24px;
-    marign-top:5px;
+    padding-top:5px;
 }
 .Notion_summary_h2::-webkit-details-marker{
     width: 20px;
     height: 20px;
-    marign-top:5px;
+    padding-top:25px;
+    padding-left:5px;
 }
 .Notion_summary_h3::-webkit-details-marker{
     width: 16px;
     height: 16px;
-    marign-top:5px;
+    padding-top:5px;
 }
 
 summary::marker{

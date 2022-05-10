@@ -9,7 +9,7 @@ import zipfile
 config = {
     "ACCESS_TOKEN" :"dd4720376e6a5d1790b5e1732dcc87c1_c2399f0fbc3c7e1682a4e7b0f518277d",
     "BLOG_NAME" : "private-k",
-    "REMOVE_AFTER_UPLOAD" : False,
+    "REMOVE_AFTER_UPLOAD" : True,
     "upload_path" : "/Users/minkyukim/Desktop/Project/Notion To Tistory/upload",
     
     "CODE_AS_PYTHON" : False,
@@ -108,7 +108,7 @@ for html_idx, html_value in enumerate(html_list):
                 details.append(sibling)
                 summary = details.find("summary")
                 summary.name = "h1"
-                summary.wrap(soup.new_tag('summary', **{'class':'Notion_summary_h1'}))
+                summary.wrap(soup.new_tag('summary', **{'class':['Notion_summary_h1', all_indent_h1[h1_idx]['class'][0]]}))
                 all_indent_h1[h1_idx].unwrap()
     # h2 이면서 자식이 summary 가져오기
     all_h2 = article.find_all('h2')
